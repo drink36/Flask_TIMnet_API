@@ -35,7 +35,12 @@ python flask_server.py
 
 服務器將在 `http://127.0.0.1:5000/` 上運行。現在，您可以通過發送 POST 請求到 `http://127.0.0.1:5000/predict` 來分析音頻檔案。
 
-## 6. 使用 Postman 測試 API
+## 6. 關於 Postman
+
+[Postman](https://www.postman.com/) 是一個流行的 API 測試工具，它允許開發人員輕鬆地發送各種 HTTP 請求，並查看服務器的響應。它提供了一個直觀的界面，使得測試和調試 API 變得非常簡單。下載並安裝 Postman，以便您可以在本地機器上測試 API。
+
+
+## 7. 使用 Postman 測試 API
 
 在 Postman 中，創建一個新的 POST 請求，並設置 URL 為 `http://127.0.0.1:5000/predict`。
 
@@ -45,7 +50,7 @@ python flask_server.py
 ![教學圖片](https://github.com/t109ab0014/Flask_TIMnet_API/blob/main/teach.png)
 您應該會在 Postman 中看到情感分析的結果。
 
-## 7. 檔案結構
+## 8. 檔案結構
 
 下面是專案目錄的結構：
 
