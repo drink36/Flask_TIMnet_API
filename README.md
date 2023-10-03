@@ -42,7 +42,7 @@ python flask_server.py
 1. 在「Body」選項卡下，選擇「form-data」。
 2. 添加一個名為 `file` 的 key，並上傳一個音頻檔案作為值。
 3. 點擊「Send」按鈕發送請求。
-
+![教學圖片](https://github.com/t109ab0014/Flask_TIMnet_API/blob/main/teach.png)
 您應該會在 Postman 中看到情感分析的結果。
 
 ## 7. 檔案結構
