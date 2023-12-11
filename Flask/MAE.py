@@ -17,6 +17,7 @@ indices = [1, 3, 5, 7, 9, 11, 12, 14, 16, 18, 19, 21, 23, 25, 27, 29]
 
 
 
+
 def get_args():
     parser = argparse.ArgumentParser('VideoMAE fine-tuning and evaluation script for video classification', add_help=False)
     parser.add_argument('--batch_size', default=64, type=int)
@@ -165,7 +166,7 @@ def get_args():
     parser.add_argument('--device', default='cuda',
                         help='device to use for training / testing')
     parser.add_argument('--seed', default=0, type=int)
-    parser.add_argument('--resume', default = config.MODEL_PATH_VIDEO,
+    parser.add_argument('--resume', default='model\checkpoint-best.pth',
                         help='resume from checkpoint')
     parser.add_argument('--auto_resume', action='store_true')
     parser.add_argument('--no_auto_resume', action='store_false', dest='auto_resume')
@@ -188,9 +189,22 @@ def get_args():
     parser.set_defaults(pin_mem=True)
 
     # distributed training parameters
+    parser.add_argument('--world_size', default=1, type=int,
+                        help='number of distributed processes')
+    parser.add_argument('--local_rank', default=-1, type=int)
+    parser.add_argument('--dist_on_itp', action='store_true')
+    parser.add_argument('--dist_url', default='env://',
+                        help='url used to set up distributed training')
+
+    parser.add_argument('--enable_deepspeed', action='store_true', default=False)
+
+
+    parser.add_argument('--val_metric', type=str, default='acc1', choices=['acc1', 'acc5', 'war', 'uar', 'weighted_f1', 'micro_f1', 'macro_f1'],
+                        help='validation metric for saving best ckpt')
     parser.add_argument('--depth', default=16, type=int,
                         help='specify model depth, NOTE: only works when no_depth model is used!')
 
+    parser.add_argument('--save_feature', action='store_true', default=False)
 
     return parser.parse_args()
 
@@ -228,7 +242,7 @@ def prediction(path):
 
     model_without_ddp = model
 
-    print("Model = %s" % str(model_without_ddp))
+    # print("Model = %s" % str(model_without_ddp))
 
 
     utils.auto_load_model_eval(
